@@ -1,24 +1,18 @@
 <template>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top navbar-laravel">
-    <div class="container-fluid">
-        <router-link :to="{ name: 'dashboard' }" class="navbar-brand">CMS</router-link>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <a href="#" class="navbar-toggler mr-2" data-toggle="collapse" data-target="#sidebar-wrapper" aria-controls="" aria-expanded="false" aria-label="Toggle sidebar">
             <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="main-navbar">
-            <ul class="navbar-nav ml-auto">
-                <li>
-                    <router-link :to="{ name: 'login' }" class="nav-link">Login</router-link>
-                </li>
-                <li>
-                    <router-link :to="{ name: 'register' }" class="nav-link">Register</router-link>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        </a>
+        
+        <router-link :to="{ name: 'dashboard' }" class="navbar-brand">CMS</router-link>
+        
+        <ul class="navbar-nav ml-auto d-inline d-lg-flex">
+            <li class="nav-item d-inline-block">
+                <router-link :to="{ name: 'logout' }" class="ml-2">Logout</router-link>
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script>
