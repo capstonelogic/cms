@@ -9,18 +9,26 @@
         
         <ul class="navbar-nav ml-auto d-inline d-lg-flex">
             <li class="nav-item d-inline-block">
-                <router-link :to="{ name: 'logout' }" class="ml-2">Logout</router-link>
+                <a href="#" @click="logout()" class="ml-2">Logout</a>
             </li>
         </ul>
     </nav>
 </template>
 
 <script>
+import store from '../store'
 
 export default {
     data() {
         return {
 
+        }
+    },
+    methods: {
+        logout: function () {
+            store.dispatch('auth/logout').then(resp => {
+                this.$router.go('/admin/login')
+            })
         }
     },
 }

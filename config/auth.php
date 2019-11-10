@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => CapstoneLogic\Users\Model\User::class,
+            'model' => CapstoneLogic\Auth\Model\User::class,
         ],
 
         // 'users' => [

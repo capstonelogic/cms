@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CapstoneLogic\Users\Model\User;
-use CapstoneLogic\Users\Model\Role;
-use CapstoneLogic\Users\Model\Permission;
+use CapstoneLogic\Auth\Model\User;
+use CapstoneLogic\Auth\Model\Role;
+use CapstoneLogic\Auth\Model\Permission;
 
 class DemoUsersSeeder extends Seeder
 {
