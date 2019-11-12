@@ -3,7 +3,11 @@ import Login from './components/Auth/Login.vue';
 import Register from './components/Auth/Register.vue';
 
 import Dashboard from './pages/Dashboard.vue';
+
 import Users from './pages/users/Index.vue';
+import CreateUser from './pages/users/Create.vue';
+import ViewUser from './pages/users/View.vue';
+import EditUser from './pages/users/Edit.vue';
 
 import store from './store'
 
@@ -14,8 +18,6 @@ var ifAuthenticated = (to, from, next) => {
   }
   next('/admin/login')
 }
-
-
 
 export default {
     mode: 'history',
@@ -33,6 +35,18 @@ export default {
       {
         path: '/admin/users', name: 'users', component: Users,
         beforeEnter: ifAuthenticated,
+      },
+      {
+          path: '/admin/users/create', name: 'create-user', component: CreateUser,
+          beforeEnter: ifAuthenticated,
+      },
+      {
+          path: '/admin/users/:user_id', name: 'user', component: ViewUser,
+          beforeEnter: ifAuthenticated,
+      },
+      {
+          path: '/admin/users/edit/:user_id', name: 'edit-user', component: EditUser,
+          beforeEnter: ifAuthenticated,
       },
     ]
 }
