@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2",
         "barryvdh/laravel-cors": "^0.11.4",
-        "capstonelogic/laravel-api-users": "dev-master",
+        "capstonelogic/laravel-api-users": "^0.1",
         "capstonelogic/laravel-auth": "^3.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",

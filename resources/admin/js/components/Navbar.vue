@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
 
         <a href="#" class="navbar-toggler mr-2" data-toggle="collapse" data-target="#sidebar-wrapper" aria-controls="" aria-expanded="false" aria-label="Toggle sidebar">
             <i class="fas fa-bars"></i>
