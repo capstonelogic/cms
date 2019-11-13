@@ -1,5 +1,12 @@
 <template>
     <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <breadcrumb :links="breadcrumb.links" :current="'Create'" />
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <form @submit="onSubmit">
@@ -32,6 +39,7 @@
 <script>
 import store from '../../store'
 import FormFields from './FormFields.vue'
+import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
     data() {
@@ -44,11 +52,18 @@ export default {
                 phone: '',
                 password: ''
             },
-            errors: {}
+            errors: {},
+            breadcrumb: {
+                links: [
+                    { to: 'dashboard', text: 'Dashboard' },
+                    { to: 'users', text: 'Users' }
+                ],
+            }
         }
     },
     components: {
-        FormFields
+        FormFields,
+        Breadcrumb
     },
     methods: {
         onChange (data) {

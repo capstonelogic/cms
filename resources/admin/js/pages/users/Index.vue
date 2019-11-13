@@ -1,10 +1,15 @@
 <template>
     <div class="container-fluid">
 
+        <div class="row">
+            <div class="col-12">
+                <breadcrumb :links="breadcrumb.links" :current="'Users'"  />
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12">
-                <div class="table-responsive mt-3">
+                <div class="table-responsive">
                     <table v-if="users.length" class="table table-sm table-bordered">
                         <thead>
                             <tr class="text-center">
@@ -55,17 +60,37 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <pagination class="text-center"
+                    v-if="meta && meta.last_page > 1"
+                    :pagination="meta" @paginate="fetchData()">
+                </pagination>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import store from '../../store'
+import Breadcrumb from '../../components/Breadcrumb.vue'
+import Pagination from '../../components/Pagination.vue'
 
 export default {
     data() {
         return {
             search: {
-                page: 1
+                page: 1,
+                per_page: 20,
+                order_by: 'id',
+                sort: 'desc'
+            },
+            breadcrumb: {
+                links: [
+                    { to: 'dashboard', text: 'Dashboard' }
+                ],
             }
         }
     },
@@ -77,6 +102,10 @@ export default {
             return store.getters['users/meta'];
         },
     },
+    components: {
+        Breadcrumb,
+        Pagination
+    },
     created () {
         this.fetchData()
     },
@@ -85,7 +114,7 @@ export default {
     },
     methods: {
         fetchData () {
-            if(this.meta) {
+            if(this.meta && this.meta.current_page) {
                 this.search.page = this.meta.current_page
             }
 

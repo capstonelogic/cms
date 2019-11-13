@@ -1,5 +1,13 @@
 <template>
     <div class="container-fluid">
+
+        <div class="row" v-if="!objectIsEmpty(user)">
+            <div class="col-12">
+                <breadcrumb :links="breadcrumb.links"
+                    :current="user.first_name+' '+user.last_name" />
+            </div>
+        </div>
+
         <div class="row pt-3">
             <div v-if="!objectIsEmpty(user)" class="col-12 col-sm-6">
                 
@@ -29,17 +37,27 @@
 
 <script>
 import store from '../../store'
+import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
     data() {
         return {
-            user_id: null
+            user_id: null,
+            breadcrumb: {
+                links: [
+                    { to: 'dashboard', text: 'Dashboard' },
+                    { to: 'users', text: 'Users' }
+                ],
+            }
         }
     },
     computed: {
         user() {
             return store.getters['users/item'];
         },
+    },
+    components: {
+        Breadcrumb
     },
     created () {
         this.user_id = this.$route.params.user_id

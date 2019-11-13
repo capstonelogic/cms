@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         routeChanged() {
-            $('.collapse').collapse('hide');
+            $('#sidebar-wrapper.collapse').collapse('hide');
         }
     }
 }
