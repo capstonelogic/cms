@@ -42,7 +42,7 @@
                     page = this.pagination.last_page;
                 }
                 this.pagination.current_page = page;
-                this.$emit('paginate');
+                this.$emit('paginate', page);
             }
         },
         computed: {

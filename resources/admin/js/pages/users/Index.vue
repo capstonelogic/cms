@@ -9,6 +9,12 @@
 
         <div class="row">
             <div class="col-12">
+                <searchbar :search="query.search" v-on:submit="(q)=>query.search=q" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
                 <div class="table-responsive">
                     <table v-if="users.length" class="table table-sm table-bordered">
                         <thead>
@@ -66,7 +72,7 @@
             <div class="col-12">
                 <pagination class="text-center"
                     v-if="meta && meta.last_page > 1"
-                    :pagination="meta" @paginate="fetchData()">
+                    :pagination="meta" @paginate="(p)=>query.page=p">
                 </pagination>
             </div>
         </div>
@@ -76,25 +82,26 @@
 <script>
 import store from '../../store'
 import Breadcrumb from '../../components/Breadcrumb.vue'
+import Searchbar from '../../components/Searchbar.vue'
 import Pagination from '../../components/Pagination.vue'
 
 export default {
     data() {
         return {
-            search: {
-                page: 1,
-                per_page: 20,
-                order_by: 'id',
-                sort: 'desc'
-            },
             breadcrumb: {
-                links: [
-                    { to: 'dashboard', text: 'Dashboard' }
-                ],
+                links: [{to: 'dashboard', text: 'Dashboard'}],
             }
         }
     },
     computed: {
+        query:  {
+            get() {
+                return store.getters['users/query']
+            },
+            set(query) {
+                store.commit('users/UPDATE_QUERY', query)
+            }
+        },
         users() {
             return store.getters['users/items'];
         },
@@ -104,31 +111,33 @@ export default {
     },
     components: {
         Breadcrumb,
+        Searchbar,
         Pagination
     },
     created () {
-        this.fetchData()
+        if(!this.isEmpty(this.$route.query)) {
+            this.query = Object.assign(this.query, this.$route.query)
+        }
+        else {
+            this.fetchData()
+        }
     },
     watch: {
-        '$route': 'fetchData'
+        query: {
+            handler(val) {
+                if(this.isEmpty(this.$route.query)
+                        || !this.isEquivalent(this.query, this.$route.query)) {
+                    this.$router.replace({query: this.query})
+                }
+
+                this.fetchData()
+            },
+            deep: true
+        }
     },
     methods: {
-        fetchData () {
-            if(this.meta && this.meta.current_page) {
-                this.search.page = this.meta.current_page
-            }
-
-            store.dispatch('users/fetchAll', this.queryString(this.search))
-                .then(function(response) {
-                    
-                }).catch((error => {
-
-                }))
-        },
-        queryString(params) {
-            return Object.keys(params).map(function(key) {
-                return key + '=' + params[key]
-            }).join('&');
+        fetchData() {
+            store.dispatch('users/fetchAll')
         },
     }
 }

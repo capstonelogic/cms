@@ -59,13 +59,7 @@ export default {
     },
     methods: {
         fetchData() {
-            var _this = this;
             store.dispatch('users/fetch', this.user_id)
-                .then(function(response) {
-                    _this.data = response.data
-                }).catch((error => {
-
-                }))
         },
         onChange(data) {
             this.data = Object.assign(data, this.data)

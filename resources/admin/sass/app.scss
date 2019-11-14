@@ -5,12 +5,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@import 'navigation';
-
 $fa-font-path : "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
+
+@import 'components/navigation';
+@import 'components/breadcrumb';
+@import 'components/pagination';
 
 body {
     display: block;
@@ -22,23 +24,4 @@ body {
     color: $gray-800;
     background-color: $white;
     overflow: hidden;
-}
-
-
-.breadcrumb-wraper {
-    margin-left: -10px;
-    margin-right: -10px;
-
-    .breadcrumb {
-        padding: 0.5rem 1rem;
-        background-color: $gray-200;
-        border-radius: initial;
-
-        .breadcrumb-item{
-            font-size: 0.9rem;
-            a {
-                color: $primary;
-            }
-        }
-    }
 }

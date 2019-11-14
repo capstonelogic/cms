@@ -4,6 +4,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import date from './mixins/date'
 import obj from './mixins/obj'
+import str from './mixins/str'
 
 Vue.use(require('vue-moment'));
 Vue.use(VueRouter);
@@ -19,6 +20,7 @@ App.router = Vue.router
 
 Vue.mixin(date)
 Vue.mixin(obj)
+Vue.mixin(str)
 
 const app = new Vue({
     el: '#app',

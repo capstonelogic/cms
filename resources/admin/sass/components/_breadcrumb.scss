@@ -1,0 +1,18 @@
+
+.breadcrumb-wraper {
+    margin-left: -10px;
+    margin-right: -10px;
+
+    .breadcrumb {
+        padding: 0.5rem 1rem;
+        background-color: $gray-200;
+        border-radius: initial;
+
+        .breadcrumb-item{
+            font-size: 0.9rem;
+            a {
+                color: $primary;
+            }
+        }
+    }
+}
