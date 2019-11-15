@@ -6,6 +6,14 @@ const module = {
     namespaced: true,
     state: {
         ...crud.state,
+        fields: [
+            {key: 'id',         label: 'ID'},
+            {key: 'first_name', label: 'First Name'},
+            {key: 'last_name',  label: 'Last Name'},
+            {key: 'email',      label: 'Email'},
+            {key: 'created_at', label: 'Created'},
+            {key: 'actions',    label: 'Actions'},
+        ]
     },
     mutations: {
         ...crud.mutations,

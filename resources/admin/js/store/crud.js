@@ -4,6 +4,7 @@ import str from '../mixins/str'
 var Crud = {
     state: {
         endpoint: '',
+        fields: [],
         items: [],
         meta: {},
         item: {},
@@ -102,6 +103,9 @@ var Crud = {
         },
     },
     getters: {
+        fields(state) {
+            return state.fields;
+        },
         items(state) {
             return state.items;
         },

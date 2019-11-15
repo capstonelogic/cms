@@ -15,58 +15,28 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="table-responsive">
-                    <table v-if="users.length" class="table table-sm table-bordered">
-                        <thead>
-                            <tr class="text-center">
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in users" v-bind:key="item.id">
-                                <th class="text-center">
-                                    <router-link :to="{name: 'user', params:{user_id:item.id}}">
-                                        {{ item.id }}
-                                    </router-link>
-                                </th>
-                                <td>
-                                    <router-link :to="{name: 'user', params:{user_id:item.id}}">
-                                        {{ item.first_name }}
-                                    </router-link>
-                                </td>
-                                <td>
-                                    <router-link :to="{name: 'user', params:{user_id:item.id}}">
-                                        {{ item.last_name }}
-                                    </router-link>
-                                </td>
-                                <td>
-                                    <router-link :to="{name: 'user', params:{user_id:item.id}}">
-                                        {{ item.email }}
-                                    </router-link>
-                                </td>
-                                <td class="text-light">
-                                    {{ item.created_at|formatDate }}
-                                </td>
-                                <td class="text-center">
-                                    <router-link :to="{name: 'edit-user', params:{user_id:item.id}}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </router-link>
-                                    <router-link :to="{ name: 'users' }" class="btn btn-sm btn-outline-danger">
-                                        <i class="fas fa-ban"></i>
-                                    </router-link>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <cl-table :headers="fields" :body="items">
+                    <template v-slot:item="props">
+                        <router-link :to="{name: 'user', params:{user_id:props.item.field.id}}">
+                            {{ props.item.key }}
+                        </router-link>
+                    </template>
+
+                    <template v-slot:s_created_at="props">
+                        {{ props.item.created_at|formatDate }}
+                    </template>
+
+                    <template v-slot:s_actions="props">
+                        <router-link :to="{name: 'edit-user', params:{user_id:props.item.id}}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </router-link>
+                        <router-link :to="{ name: 'users' }" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-ban"></i>
+                        </router-link>
+                    </template>
+                </cl-table>
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-12">
@@ -83,6 +53,7 @@
 import Breadcrumb from '../../components/Breadcrumb.vue'
 import Searchbar from '../../components/Searchbar.vue'
 import Pagination from '../../components/Pagination.vue'
+import ClTable from '../../components/Table.vue'
 
 export default {
     data() {
@@ -101,7 +72,10 @@ export default {
                 this.$store.commit('users/UPDATE_QUERY', query)
             }
         },
-        users() {
+        fields() {
+            return this.$store.getters['users/fields'];
+        },
+        items() {
             return this.$store.getters['users/items'];
         },
         meta() {
@@ -111,7 +85,8 @@ export default {
     components: {
         Breadcrumb,
         Searchbar,
-        Pagination
+        Pagination,
+        ClTable
     },
     created () {
         if(!this.isEmpty(this.$route.query)) {
