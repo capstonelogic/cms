@@ -25,3 +25,11 @@ body {
     background-color: $white;
     overflow: hidden;
 }
+
+
+#root-loader {
+    position: absolute;
+    top: calc(50% - 3rem);
+    left: calc(50% - 3rem);
+    font-size: 3rem;
+}

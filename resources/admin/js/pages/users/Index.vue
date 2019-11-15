@@ -80,7 +80,6 @@
 </template>
 
 <script>
-import store from '../../store'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 import Searchbar from '../../components/Searchbar.vue'
 import Pagination from '../../components/Pagination.vue'
@@ -96,17 +95,17 @@ export default {
     computed: {
         query:  {
             get() {
-                return store.getters['users/query']
+                return this.$store.getters['users/query']
             },
             set(query) {
-                store.commit('users/UPDATE_QUERY', query)
+                this.$store.commit('users/UPDATE_QUERY', query)
             }
         },
         users() {
-            return store.getters['users/items'];
+            return this.$store.getters['users/items'];
         },
         meta() {
-            return store.getters['users/meta'];
+            return this.$store.getters['users/meta'];
         },
     },
     components: {
@@ -137,7 +136,7 @@ export default {
     },
     methods: {
         fetchData() {
-            store.dispatch('users/fetchAll')
+            this.$store.dispatch('users/fetchAll')
         },
     }
 }

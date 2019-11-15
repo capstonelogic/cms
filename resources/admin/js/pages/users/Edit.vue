@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import store from '../../store'
 import FormFields from './FormFields.vue'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 
@@ -45,7 +44,7 @@ export default {
     },
     computed: {
         user() {
-            return store.getters['users/item'];
+            return this.$store.getters['users/item'];
         },
     },
     components: {
@@ -59,7 +58,7 @@ export default {
     },
     methods: {
         fetchData() {
-            store.dispatch('users/fetch', this.user_id)
+            this.$store.dispatch('users/fetch', this.user_id)
         },
         onChange(data) {
             this.data = Object.assign(data, this.data)
@@ -68,7 +67,7 @@ export default {
             e.preventDefault();
             var _this = this;
 
-            store.dispatch('users/update', this.data)
+            this.$store.dispatch('users/update', this.data)
                 .then(function(response) {
                     _this.$router.push({name: 'users'})
                 }).catch((errors => {

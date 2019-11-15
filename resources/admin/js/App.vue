@@ -8,6 +8,7 @@
                     <div id="page-content-wrapper">
                         <router-view></router-view>
                     </div>
+                    <div v-if="$wait.any" id="root-loader">Load...</div>
                 </div>
             </div>
         </div>
@@ -18,7 +19,6 @@
 </template>
 
 <script>
-import store from './store'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
 
@@ -31,7 +31,7 @@ export default {
     },
     computed: {
         isAuthenticated() {
-            return store.getters['auth/isAuthenticated']
+            return this.$store.getters['auth/isAuthenticated']
         }
     },
     components: {

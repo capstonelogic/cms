@@ -42,48 +42,61 @@ var Crud = {
         }
     },
     actions: {
-        fetchAll({state, commit})  {
+        fetchAll({dispatch, state, commit})  {
+            dispatch('wait/start', 'fetchAll', { root: true });
             return new Promise((resolve, reject) => {
                 axios.get(state.endpoint+'?'+str.methods.queryString(state.query))
                     .then((response) => {
                         commit("FETCH_ALL", response.data);
                         resolve(response.data);
+                        dispatch('wait/end', 'fetchAll', { root: true });
                     }).catch((error) => {
                         state.items = []
                         state.meta = {}
                         reject(error.response.data.errors);
+                        dispatch('wait/end', 'fetchAll', { root: true });
                     });
             });
         },
-        fetch({state, commit}, id)  {
+        fetch({dispatch, state, commit}, id)  {
             state.item = {}
+            dispatch('wait/start', 'fetch.'+id, { root: true });
 
             return new Promise((resolve, reject) => {
                 axios.get(state.endpoint+'/'+id).then((response) => {
                     commit("FETCH", response.data);
                     resolve(response.data);
+                    dispatch('wait/end', 'fetch.'+id, { root: true });
                 }).catch((error) => {
                     reject(error.response.data.errors);
+                    dispatch('wait/end', 'fetch.'+id, { root: true });
                 });
             });
         },
-        create({commit}, data)  {
+        create({dispatch, state, commit}, data)  {
+            dispatch('wait/start', 'create', { root: true });
             return new Promise((resolve, reject) => {
                 axios.post(state.endpoint, data).then((response) => {
                     commit("CREATE", response.data);
                     resolve(response.data);
+                    dispatch('wait/end', 'create', { root: true });
                 }).catch((error) => {
                     reject(error.response.data.errors);
+                    dispatch('wait/end', 'create', { root: true });
                 });
             });
         },
-        update({commit}, data)  {
+        update({dispatch, state, commit}, data)  {
+            dispatch('wait/start', 'update.'+data.id, { root: true });
+
             return new Promise((resolve, reject) => {
                 axios.put(state.endpoint+'/'+data.id, data).then((response) => {
                     commit("UPDATE", response.data);
                     resolve(response.data);
+                    dispatch('wait/end', 'update.'+data.id, { root: true });
                 }).catch((error) => {
                     reject(error.response.data.errors);
+                    dispatch('wait/end', 'update.'+data.id, { root: true });
                 });
             });
         },

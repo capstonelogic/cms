@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import store from '../../store'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
@@ -53,7 +52,7 @@ export default {
     },
     computed: {
         user() {
-            return store.getters['users/item'];
+            return this.$store.getters['users/item'];
         },
     },
     components: {
@@ -66,8 +65,7 @@ export default {
     },
     methods: {
         fetchData () {
-            
-            store.dispatch('users/fetch', this.user_id)
+            this.$store.dispatch('users/fetch', this.user_id)
                 .then(function(response) {
                     
                 }).catch((error => {
