@@ -9,7 +9,7 @@ const module = {
         fields: [
             {key: 'id',         label: 'ID'},
             {key: 'title',      label: 'Title'},
-            {key: 'content',    label: 'Content'},
+            {key: 'content',    label: 'Content',   onList: false},
             {key: 'created_at', label: 'Created'},
             {key: 'updated_at', label: 'Updated'},
         ]

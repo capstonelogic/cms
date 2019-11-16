@@ -15,7 +15,7 @@
 
         <div class="row">
             <div class="col-12">
-                <cl-table :headers="fields" :body="items" :actions="table_actions">
+                <cl-table :headers="onListFilter(fields)" :body="items" :actions="table_actions">
                     <template v-slot:item="props">
                         <router-link :to="{name: namespace+'-view', params:{id:props.item.field.id}}">
                             {{ props.item.key }}
@@ -145,6 +145,14 @@ export default {
     methods: {
         fetchData() {
             this.$store.dispatch(this.namespace+'/fetchAll')
+        },
+        onListFilter(items) {
+            return items.filter(function (item) {
+                if(!item.hasOwnProperty('onList')
+                        || (item.hasOwnProperty('onList') && item.onList == true)) {
+                    return item;
+                }
+            })
         },
         remove() {
             this.$store.dispatch(this.namespace+'/delete', this.activeItem.id)
