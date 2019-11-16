@@ -31,7 +31,6 @@
 
 <script>
 import CrudView from '../../components/Crud/View.vue'
-import FormFields from './FormFields.vue'
 
 export default {
     props: ['title', 'namespace'],
