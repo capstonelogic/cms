@@ -12,22 +12,30 @@ var ifAuthenticated = (to, from, next) => {
   }
   next('/admin/login')
 }
+var props = {
+    title: 'Users',
+    namespace: 'users'
+};
 
 export default [
     {
         path: '/admin/users', name: 'users', component: Users,
         beforeEnter: ifAuthenticated,
+        props: props
     },
     {
-        path: '/admin/users/create', name: 'create-user', component: CreateUser,
+        path: '/admin/users/create', name: 'users-create', component: CreateUser,
         beforeEnter: ifAuthenticated,
+        props: props
     },
     {
-        path: '/admin/users/:user_id', name: 'user', component: ViewUser,
+        path: '/admin/users/:id', name: 'users-view', component: ViewUser,
         beforeEnter: ifAuthenticated,
+        props: props
     },
     {
-        path: '/admin/users/edit/:user_id', name: 'edit-user', component: EditUser,
+        path: '/admin/users/edit/:id', name: 'users-edit', component: EditUser,
         beforeEnter: ifAuthenticated,
+        props: props,
     },
 ];

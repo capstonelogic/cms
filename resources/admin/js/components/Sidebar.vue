@@ -21,7 +21,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{ name: 'create-user' }">
+                    <router-link :to="{ name: 'users-create' }">
                         <i class="fas fa-plus"></i>
                         Create
                     </router-link>

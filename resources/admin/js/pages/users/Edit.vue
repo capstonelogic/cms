@@ -2,16 +2,15 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-12">
-                <breadcrumb :links="breadcrumb.links"
-                    :current="'Edit: '+user.first_name+' '+user.last_name"  />
+            <div v-if="!objectIsEmpty(item)" class="col-12">
+                <breadcrumb :links="breadcrumb.links" :current="itemTitle"  />
             </div>
         </div>
 
         <div class="row">
-            <div v-if="!objectIsEmpty(user)" class="col-12">
+            <div v-if="!objectIsEmpty(item)" class="col-12">
                 <form @submit="onSubmit">
-                    <form-fields :item="user" @changed="onChange" :errors="errors"/>
+                    <form-fields :item="item" @changed="onChange" :errors="errors"/>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-outline-primary">
@@ -29,22 +28,26 @@ import FormFields from './FormFields.vue'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
+    props: ['title', 'namespace'],
     data() {
         return {
-            user_id: null,
+            id: null,
             data: {},
             errors: {},
             breadcrumb: {
                 links: [
                     { to: 'dashboard', text: 'Dashboard' },
-                    { to: 'users', text: 'Users' }
+                    { to: this.namespace, text: this.title }
                 ]
             }
         }
     },
     computed: {
-        user() {
-            return this.$store.getters['users/item'];
+        item() {
+            return this.$store.getters[this.namespace+'/item'];
+        },
+        itemTitle() {
+            return this.$store.getters[this.namespace+'/itemTitle'];
         },
     },
     components: {
@@ -52,13 +55,13 @@ export default {
         Breadcrumb
     },
     created() {
-        this.user_id = this.$route.params.user_id
+        this.id = this.$route.params.id
 
         this.fetchData()
     },
     methods: {
         fetchData() {
-            this.$store.dispatch('users/fetch', this.user_id)
+            this.$store.dispatch(this.namespace+'/fetch', this.id)
         },
         onChange(data) {
             this.data = Object.assign(data, this.data)
@@ -67,9 +70,9 @@ export default {
             e.preventDefault();
             var _this = this;
 
-            this.$store.dispatch('users/update', this.data)
+            this.$store.dispatch(this.namespace+'/update', this.data)
                 .then(function(response) {
-                    _this.$router.push({name: 'users'})
+                    _this.$router.push({name: _this.namespace})
                 }).catch((errors => {
                     _this.errors = errors
                 }))

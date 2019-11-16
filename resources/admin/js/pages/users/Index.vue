@@ -3,7 +3,7 @@
 
         <div class="row">
             <div class="col-12">
-                <breadcrumb :links="breadcrumb.links" :current="'Users'"  />
+                <breadcrumb :links="breadcrumb.links" :current="title"  />
             </div>
         </div>
 
@@ -17,7 +17,7 @@
             <div class="col-12">
                 <cl-table :headers="fields" :body="items">
                     <template v-slot:item="props">
-                        <router-link :to="{name: 'user', params:{user_id:props.item.field.id}}">
+                        <router-link :to="{name: namespace+'-view', params:{id:props.item.field.id}}">
                             {{ props.item.key }}
                         </router-link>
                     </template>
@@ -27,7 +27,7 @@
                     </template>
 
                     <template v-slot:s_actions="props">
-                        <router-link :to="{name: 'edit-user', params:{user_id:props.item.id}}" class="btn btn-sm btn-outline-primary">
+                        <router-link :to="{name: namespace+'-edit', params:{id:props.item.id}}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-pencil-alt"></i>
                         </router-link>
                         <a href="#" @click="activeItem = props.item"
@@ -63,6 +63,7 @@ import ClTable from '../../components/Table.vue'
 import ConfirmationModal from '../../components/ConfirmationModal.vue'
 
 export default {
+    props: ['title', 'namespace'],
     data() {
         return {
             breadcrumb: {
@@ -73,34 +74,34 @@ export default {
     computed: {
         query:  {
             get() {
-                return this.$store.getters['users/query']
+                return this.$store.getters[this.namespace+'/query']
             },
             set(query) {
-                this.$store.commit('users/UPDATE_QUERY', query)
+                this.$store.commit(this.namespace+'/UPDATE_QUERY', query)
             }
         },
         activeItem:  {
             get() {
-                return this.$store.getters['users/activeItem']
+                return this.$store.getters[this.namespace+'/activeItem']
             },
             set(activeItem) {
-                this.$store.commit('users/SET_ACTIVE', activeItem)
+                this.$store.commit(this.namespace+'/SET_ACTIVE', activeItem)
             }
         },
         itemTitle() {
-            return this.$store.getters['users/itemTitle'];
+            return this.$store.getters[this.namespace+'/itemTitle'];
         },
         fields() {
-            return this.$store.getters['users/fields'];
+            return this.$store.getters[this.namespace+'/fields'];
         },
         items() {
-            return this.$store.getters['users/items'];
+            return this.$store.getters[this.namespace+'/items'];
         },
         itemTitle() {
-            return this.$store.getters['users/itemTitle'];
+            return this.$store.getters[this.namespace+'/itemTitle'];
         },
         meta() {
-            return this.$store.getters['users/meta'];
+            return this.$store.getters[this.namespace+'/meta'];
         },
     },
     components: {
@@ -133,10 +134,10 @@ export default {
     },
     methods: {
         fetchData() {
-            this.$store.dispatch('users/fetchAll')
+            this.$store.dispatch(this.namespace+'/fetchAll')
         },
         remove() {
-            this.$store.dispatch('users/delete', this.activeItem.id)
+            this.$store.dispatch(this.namespace+'/delete', this.activeItem.id)
             this.activeItem ={}
         }
     }

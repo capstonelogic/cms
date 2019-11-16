@@ -35,6 +35,7 @@ var Crud = {
         },
         FETCH(state, item) {
             state.item = item.data;
+            state.activeItem = item.data;
         },
         CREATE: (state, item) => {
             state.items.unshift(item);

@@ -1,32 +1,31 @@
 <template>
     <div class="container-fluid">
 
-        <div class="row" v-if="!objectIsEmpty(user)">
-            <div class="col-12">
-                <breadcrumb :links="breadcrumb.links"
-                    :current="user.first_name+' '+user.last_name" />
+        <div class="row">
+            <div v-if="!objectIsEmpty(item)" class="col-12">
+                <breadcrumb :links="breadcrumb.links" :current="itemTitle" />
             </div>
         </div>
 
         <div class="row pt-3">
-            <div v-if="!objectIsEmpty(user)" class="col-12 col-sm-6">
+            <div v-if="!objectIsEmpty(item)" class="col-12 col-sm-6">
                 
                 <div class="card">
                     <div class="card-header text-center">
-                        {{user.first_name}} {{user.last_name}}
+                        {{item.first_name}} {{item.last_name}}
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            Username: {{user.username}}
+                            Username: {{item.username}}
                         </li>
                         <li class="list-group-item">
-                            Email: {{user.email}}
+                            Email: {{item.email}}
                         </li>
                         <li class="list-group-item">
-                            Phone: {{user.phone}}
+                            Phone: {{item.phone}}
                         </li>
                         <li class="list-group-item">
-                            Registered: {{user.created_at|formatDate}}
+                            Registered: {{item.created_at|formatDate}}
                         </li>
                     </ul>
                 </div>
@@ -39,33 +38,37 @@
 import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
+    props: ['title', 'namespace'],
     data() {
         return {
-            user_id: null,
+            id: null,
             breadcrumb: {
                 links: [
                     { to: 'dashboard', text: 'Dashboard' },
-                    { to: 'users', text: 'Users' }
+                    { to: this.namespace, text: this.title }
                 ],
             }
         }
     },
     computed: {
-        user() {
-            return this.$store.getters['users/item'];
+        item() {
+            return this.$store.getters[this.namespace+'/item'];
+        },
+        itemTitle() {
+            return this.$store.getters[this.namespace+'/itemTitle'];
         },
     },
     components: {
         Breadcrumb
     },
     created () {
-        this.user_id = this.$route.params.user_id
+        this.id = this.$route.params.id
 
         this.fetchData()
     },
     methods: {
         fetchData () {
-            this.$store.dispatch('users/fetch', this.user_id)
+            this.$store.dispatch(this.namespace+'/fetch', this.id)
                 .then(function(response) {
                     
                 }).catch((error => {
