@@ -30,9 +30,11 @@
                         <router-link :to="{name: 'edit-user', params:{user_id:props.item.id}}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-pencil-alt"></i>
                         </router-link>
-                        <router-link :to="{ name: 'users' }" class="btn btn-sm btn-outline-danger">
+                        <a href="#" @click="activeItem = props.item"
+                                data-toggle="modal" data-target="#confirmation-modal"
+                                class="btn btn-sm btn-outline-danger">
                             <i class="fas fa-ban"></i>
-                        </router-link>
+                        </a>
                     </template>
                 </cl-table>
             </div>
@@ -46,6 +48,10 @@
                 </pagination>
             </div>
         </div>
+
+        <confirmation-modal
+            :text="'Are you sure you want to delete ('+itemTitle+') ?'"
+            v-on:yes="()=>remove()"/>
     </div>
 </template>
 
@@ -54,6 +60,7 @@ import Breadcrumb from '../../components/Breadcrumb.vue'
 import Searchbar from '../../components/Searchbar.vue'
 import Pagination from '../../components/Pagination.vue'
 import ClTable from '../../components/Table.vue'
+import ConfirmationModal from '../../components/ConfirmationModal.vue'
 
 export default {
     data() {
@@ -72,11 +79,25 @@ export default {
                 this.$store.commit('users/UPDATE_QUERY', query)
             }
         },
+        activeItem:  {
+            get() {
+                return this.$store.getters['users/activeItem']
+            },
+            set(activeItem) {
+                this.$store.commit('users/SET_ACTIVE', activeItem)
+            }
+        },
+        itemTitle() {
+            return this.$store.getters['users/itemTitle'];
+        },
         fields() {
             return this.$store.getters['users/fields'];
         },
         items() {
             return this.$store.getters['users/items'];
+        },
+        itemTitle() {
+            return this.$store.getters['users/itemTitle'];
         },
         meta() {
             return this.$store.getters['users/meta'];
@@ -86,7 +107,8 @@ export default {
         Breadcrumb,
         Searchbar,
         Pagination,
-        ClTable
+        ClTable,
+        ConfirmationModal
     },
     created () {
         if(!this.isEmpty(this.$route.query)) {
@@ -113,6 +135,10 @@ export default {
         fetchData() {
             this.$store.dispatch('users/fetchAll')
         },
+        remove() {
+            this.$store.dispatch('users/delete', this.activeItem.id)
+            this.activeItem ={}
+        }
     }
 }
 </script>

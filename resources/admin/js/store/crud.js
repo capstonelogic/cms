@@ -8,6 +8,8 @@ var Crud = {
         items: [],
         meta: {},
         item: {},
+        activeItem: {},
+        itemTitle: '',
         query: {
             page: 1,
             per_page: 20,
@@ -19,6 +21,9 @@ var Crud = {
     mutations: {
         UPDATE_QUERY(state, query) {
             state.query = query;
+        },
+        SET_ACTIVE(state, item) {
+            state.activeItem = item;
         },
         FETCH_ALL(state, items) {
             state.items = items.data;
@@ -40,6 +45,13 @@ var Crud = {
                     Vue.set(state.items, i, item);
                 }
             })
+        },
+        DELETE (state, id) {
+            state.items.forEach(function(item, i) {
+                if(item.id == id) {
+                    state.items.splice(i, 1);
+                }
+            });
         }
     },
     actions: {
@@ -101,6 +113,20 @@ var Crud = {
                 });
             });
         },
+        delete({dispatch, state, commit}, id) {
+            dispatch('wait/start', 'delete.'+id, { root: true });
+            
+            return new Promise((resolve, reject) => {
+                axios.delete(state.endpoint+'/'+id).then((response) => {
+                    commit('DELETE', id)
+                    resolve(response.data);
+                    dispatch('wait/end', 'delete.'+id, { root: true });
+                }).catch((error => {
+                    reject(error.response.data.errors);
+                    dispatch('wait/end', 'delete.'+id, { root: true });
+                }))
+            })
+        },
     },
     getters: {
         fields(state) {
@@ -114,6 +140,12 @@ var Crud = {
         },
         item(state) {
             return state.item;
+        },
+        activeItem(state) {
+            return state.activeItem;
+        },
+        itemTitle(state) {
+            return state.itemTitle;
         },
         query(state) {
             return state.query;

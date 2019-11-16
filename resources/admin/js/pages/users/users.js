@@ -23,6 +23,9 @@ const module = {
     },
     getters: {
         ...crud.getters,
+        itemTitle(state) {
+            return state.activeItem.first_name+' '+state.activeItem.last_name;
+        },
     }
 }
   
