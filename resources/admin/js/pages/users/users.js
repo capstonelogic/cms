@@ -12,7 +12,6 @@ const module = {
             {key: 'last_name',  label: 'Last Name'},
             {key: 'email',      label: 'Email'},
             {key: 'created_at', label: 'Created'},
-            {key: 'actions',    label: 'Actions'},
         ]
     },
     mutations: {

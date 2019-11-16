@@ -6,6 +6,9 @@
                     <th v-for="header in headers" v-bind:key="header.key">
                         {{header.label}}
                     </th>
+                    <th v-if="actions">
+                        Actions
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +20,9 @@
                             </slot>
                         </slot>
                     </td>
+                    <td v-if="actions" class="td_actions">
+                        <slot name="s_actions" v-bind:item="item"></slot>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -26,7 +32,7 @@
 
 <script>
     export default {
-        props: ['headers', 'body'],
+        props: ['headers', 'body', 'actions'],
         
         data() {
             return {
