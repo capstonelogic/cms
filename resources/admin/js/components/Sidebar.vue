@@ -12,22 +12,36 @@
                 <i class="fas fa-users"></i>
                 Users
             </a>
-
             <ul class="collapse list-unstyled" id="usersSubmenu">
                 <li>
                     <router-link :to="{ name: 'users' }">
-                        <i class="fas fa-users"></i>
-                        Users
+                        <i class="fas fa-users"></i>Users
                     </router-link>
                 </li>
                 <li>
                     <router-link :to="{ name: 'users-create' }">
-                        <i class="fas fa-plus"></i>
-                        Create
+                        <i class="fas fa-plus"></i>Create
                     </router-link>
                 </li>
             </ul>
-
+        </li>
+        <li>
+            <a href="#pagesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-file"></i>
+                Pages
+            </a>
+            <ul class="collapse list-unstyled" id="pagesSubmenu">
+                <li>
+                    <router-link :to="{ name: 'pages' }">
+                        <i class="fas fa-file"></i>Pages
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ name: 'pages-create' }">
+                        <i class="fas fa-plus"></i>Create
+                    </router-link>
+                </li>
+            </ul>
         </li>
       </ul>
     </div>

@@ -26,6 +26,10 @@
                         {{ props.item.created_at|formatDate }}
                     </template>
 
+                    <template v-slot:s_updated_at="props">
+                        {{ props.item.updated_at|formatDate }}
+                    </template>
+
                     <template v-slot:s_actions="props">
                         <router-link :to="{name: namespace+'-edit', params:{id:props.item.id}}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-pencil-alt"></i>

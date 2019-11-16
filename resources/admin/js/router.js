@@ -30,4 +30,7 @@ router.addRoutes(authRoutes);
 import usersRoutes from './pages/users/routes';
 router.addRoutes(usersRoutes);
 
+import pagesRoutes from './pages/pages/routes';
+router.addRoutes(pagesRoutes);
+
 export default router

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7bf2ea516d4204e946cc1d0e58824c",
+    "content-hash": "f1ab3766326e8e622d27dda3412bbbb1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -119,6 +119,46 @@
                 "laravel"
             ],
             "time": "2019-08-28T11:27:11+00:00"
+        },
+        {
+            "name": "capstonelogic/laravel-api-pages",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/laravel-api-pages",
+                "reference": "0689431ab7c3caf32a95c658abb51ffd1732d292"
+            },
+            "require": {
+                "illuminate/support": "^6.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CapstoneLogic\\Pages\\PagesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CapstoneLogic\\Pages\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Pavlyshyn",
+                    "email": "pavlyshyn.roma@gmail.com",
+                    "homepage": "https://github.com/capstonelogic",
+                    "role": "Developer"
+                }
+            ],
+            "transport-options": {
+                "symlink": true
+            }
         },
         {
             "name": "capstonelogic/laravel-api-users",
@@ -4364,16 +4404,16 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
+                "reference": "27a216cbe72327b2d6369fab721a5843be71e57d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/27a216cbe72327b2d6369fab721a5843be71e57d",
+                "reference": "27a216cbe72327b2d6369fab721a5843be71e57d",
                 "shasum": ""
             },
             "require": {
@@ -4382,13 +4422,11 @@
             "require-dev": {
                 "ext-intl": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "squizlabs/php_codesniffer": "^1.5"
+                "squizlabs/php_codesniffer": "^2.9.2"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.8-dev"
-                }
+                "branch-alias": []
             },
             "autoload": {
                 "psr-4": {
@@ -4410,7 +4448,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2018-07-12T10:23:15+00:00"
+            "time": "2019-11-14T13:13:06+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -6062,7 +6100,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "capstonelogic/laravel-api-pages": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

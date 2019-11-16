@@ -4,7 +4,8 @@ table {
     .td_actions {
         text-align: center !important;
     }
-    .td_created_at {
+    .td_created_at,
+    .td_updated_at {
         color: $light;
     }
 }
