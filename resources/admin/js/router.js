@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Dashboard from './pages/Dashboard.vue';
+import Dashboard from './pages/Dashboard/Dashboard.vue';
 import PageNotFound from './pages/PageNotFound.vue';
 
 import store from './store'
