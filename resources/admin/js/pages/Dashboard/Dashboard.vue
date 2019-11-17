@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div v-if="stats_widgets.length" class="row stats-widgets pt-3">
         <div v-for="item in stats_widgets" v-bind:key="item.title"
-                class="col-6 col-sm-4">
+                class="col-sm-4 mb-3">
 
             <stats-widget
                 :icon="item.icon"
