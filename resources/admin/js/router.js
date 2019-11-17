@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Dashboard from './pages/Dashboard.vue';
+import PageNotFound from './pages/PageNotFound.vue';
 
 import store from './store'
 var ifAuthenticated = (to, from, next) => {
@@ -21,6 +22,9 @@ var router = new VueRouter({
         path: '/admin', name: 'dashboard', component: Dashboard,
         beforeEnter: ifAuthenticated,
       },
+      {
+        path: "*", component: PageNotFound
+      }
     ]
 });
 
