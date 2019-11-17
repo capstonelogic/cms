@@ -8,7 +8,9 @@
                     <div id="page-content-wrapper">
                         <router-view></router-view>
                     </div>
-                    <div v-if="$wait.any" id="root-loader">Load...</div>
+                    <div v-if="$wait.any" id="root-loader">
+                        <span class="text">...</span>
+                    </div>
                 </div>
             </div>
         </div>

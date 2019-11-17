@@ -1,6 +1,7 @@
-import crud from '../../store/crud';
+import crudModule from '../../store/crud';
 
-crud.state.endpoint = '/pages'
+
+const crud = crudModule('/pages');
 
 const module = {
     namespaced: true,
