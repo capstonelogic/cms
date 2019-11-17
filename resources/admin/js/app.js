@@ -12,6 +12,9 @@ import str from './mixins/str'
 Vue.use(VueWait)
 Vue.use(require('vue-moment'))
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use(CKEditor);
+
 export default Vue;
 
 Vue.mixin(date)

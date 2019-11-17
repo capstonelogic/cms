@@ -6,9 +6,7 @@
 
         <template v-slot:body="props">
             <h1>{{props.item.title}}</h1>
-            <div>
-                {{props.item.content}}
-            </div>
+            <div v-html="props.item.content"></div>
         </template>
 
     </crud-view>

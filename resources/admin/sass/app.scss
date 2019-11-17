@@ -34,3 +34,7 @@ body {
     left: calc(50% - 3rem);
     font-size: 3rem;
 }
+
+.ck-editor__editable_inline {
+    min-height: 400px;
+}

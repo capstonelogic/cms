@@ -15,10 +15,8 @@
 
     <div class="form-group">
         <label for="contentInput">Content:</label>
-        <textarea class="form-control" id="contentInput"
-            placeholder="Enter Content"
-            v-model="data.content" />
-        
+        <editor class="form-control" v-model="data.content"/>
+
         <div v-if="errors.hasOwnProperty('content')">
             <p v-for="error in errors.content" v-bind:key="error" class="text-danger">
                 {{error}}
@@ -30,6 +28,8 @@
 </template>
 
 <script>
+import Editor from '../../components/Editor.vue'
+
 export default {
     props: ['item', 'errors'],
     data() {
@@ -39,6 +39,9 @@ export default {
     },
     created () {
         this.data = this.item;
+    },
+    components: {
+        Editor
     },
     watch: {
         data: {
