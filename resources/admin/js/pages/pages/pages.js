@@ -7,6 +7,10 @@ const module = {
     namespaced: true,
     state: {
         ...crud.state,
+        query: {
+            ...crud.state.query,
+            per_page: 15,
+        },
         fillable: {
             status_id: 1,
             title: '',
@@ -26,10 +30,11 @@ const module = {
                 belongsTo: {
                     namespace: 'page_statuses',
                     for_key: 'status_id',
-                    ref_key: 'id'
+                    ref_key: 'id',
+                    title_key: 'title',
                 }
             },
-            {key: 'created_at',         label: 'Created'},
+            {key: 'created_at',         label: 'Created',   onList: false},
             {key: 'updated_at',         label: 'Updated'},
         ]
     },

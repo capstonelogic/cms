@@ -1,88 +1,53 @@
 <template>
 <div>
-    <div class="form-group">
-        <label for="titleInput">Title:</label>
-        <input type="text" class="form-control" id="titleInput"
-            placeholder="Enter Title"
-            v-model="data.title" />
-        
-        <div v-if="errors.hasOwnProperty('title')">
-            <p v-for="error in errors.title" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label for="contentInput">Content:</label>
-        <editor class="form-control" v-model="data.content"/>
+    <form-input :type="'text'" :placeholder="'Enter Title'"
+        :label="'Title:'"
+        v-model="data.title"
+        :errors="errors"
+        :error_key="'title'"/>
 
-        <div v-if="errors.hasOwnProperty('content')">
-            <p v-for="error in errors.content" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
+    <form-editor
+        :label="'Content:'"
+        v-model="data.content"
+        :errors="errors"
+        :error_key="'content'"/>
 
-    <div class="form-group">
-        <label for="statusInput">Status:</label>
-        <cl-select
-            v-if="related.hasOwnProperty('page_statuses')"
-            v-model="data.status_id"
-            :options="related.page_statuses.data"/>
+    <form-select
+        v-if="related.hasOwnProperty('page_statuses')"
+        :label="'Status:'"
+        v-model="data[related.page_statuses.keys.for_key]"
+        :options="related.page_statuses.data"
+        :value_key="related.page_statuses.keys.ref_key"
+        :title_key="related.page_statuses.keys.title_key"
+        :errors="errors"
+        :error_key="related.page_statuses.keys.for_key"/>
 
-        <div v-if="errors.hasOwnProperty('status_id')">
-            <p v-for="error in errors.status_id" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
+    <form-input :type="'text'" :placeholder="'Enter SEO Title'"
+        :label="'SEO Title:'"
+        v-model="data.seo_title"
+        :errors="errors"
+        :error_key="'seo_title'"/>
 
-    <div class="form-group">
-        <label for="seoTitleInput">SEO Title:</label>
-        <input type="text" class="form-control" id="seoTitleInput"
-            placeholder="Enter SEO Title"
-            v-model="data.seo_title" />
-        
-        <div v-if="errors.hasOwnProperty('seo_title')">
-            <p v-for="error in errors.seo_title" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
+    <form-input :type="'text'" :placeholder="'Enter SEO Description'"
+        :label="'SEO Description:'"
+        v-model="data.seo_description"
+        :errors="errors"
+        :error_key="'seo_description'"/>
 
-    <div class="form-group">
-        <label for="seoDescriptionInput">SEO Description:</label>
-        <input type="text" class="form-control" id="seoDescriptionInput"
-            placeholder="Enter SEO Description"
-            v-model="data.seo_description" />
-        
-        <div v-if="errors.hasOwnProperty('seo_description')">
-            <p v-for="error in errors.seo_description" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="seoKeywordsInput">SEO Keywords:</label>
-        <input type="text" class="form-control" id="seoKeywordsInput"
-            placeholder="Enter SEO Keywords"
-            v-model="data.seo_keywords" />
-        
-        <div v-if="errors.hasOwnProperty('seo_keywords')">
-            <p v-for="error in errors.seo_keywords" v-bind:key="error" class="text-danger">
-                {{error}}
-            </p>
-        </div>
-    </div>
+    <form-input :type="'text'" :placeholder="'Enter SEO Keywords'"
+        :label="'SEO Keywords:'"
+        v-model="data.seo_keywords"
+        :errors="errors"
+        :error_key="'seo_keywords'"/>
 
 </div>
 </template>
 
 <script>
-import Editor from '../../components/Editor.vue'
-import ClSelect from '../../components/Select.vue'
+import FormEditor from '../../components/Form/Editor.vue'
+import FormInput from '../../components/Form/Input.vue'
+import FormSelect from '../../components/Form/Select.vue'
 
 export default {
     props: ['item', 'namespace', 'errors'],
@@ -101,8 +66,9 @@ export default {
         this.$store.dispatch(this.namespace+'/fetchRelated')
     },
     components: {
-        Editor,
-        ClSelect
+        FormEditor,
+        FormInput,
+        FormSelect
     },
     watch: {
         data: {

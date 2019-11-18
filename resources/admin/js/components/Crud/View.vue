@@ -9,7 +9,7 @@
 
         <div class="row pt-3">
             <div v-if="!objectIsEmpty(item)" class="col-12 col-sm-6">
-                <slot name="body" v-bind:item="item" />
+                <slot name="body" v-bind:item="item" v-bind:related="related" />
             </div>
         </div>
     </div>
@@ -35,6 +35,9 @@ export default {
         item() {
             return this.$store.getters[this.namespace+'/item'];
         },
+        related() {
+            return this.$store.getters[this.namespace+'/related'];
+        },
         itemTitle() {
             return this.$store.getters[this.namespace+'/itemTitle'];
         },
@@ -45,7 +48,9 @@ export default {
     created () {
         this.id = this.$route.params.id
 
+        this.$store.dispatch(this.namespace+'/fetchRelated')
         this.fetchData()
+        
     },
     methods: {
         fetchData () {

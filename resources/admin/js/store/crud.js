@@ -62,10 +62,9 @@ export default function crudModule(endpoint) {
         },
         actions: {
             fetchRelated({dispatch, state, commit}) {
-                dispatch('wait/start', 'fetchRelated', { root: true });
-
                 state.fields.forEach(function(field, i) {
                     if(field.hasOwnProperty('belongsTo')) {
+                        dispatch('wait/start', 'fetchRelated', { root: true });
                         var namespace = field.belongsTo.namespace
                         
                         dispatch(namespace+'/fetchAll', null, { root: true })
@@ -75,8 +74,9 @@ export default function crudModule(endpoint) {
                                     data: {
                                         data: response.data,
                                         keys: {
-                                            for_key: 'status_id',
-                                            ref_key: 'id'
+                                            for_key: field.belongsTo.for_key,
+                                            ref_key: field.belongsTo.ref_key,
+                                            title_key: field.belongsTo.title_key
                                         }
                                     }
                                 });
@@ -108,7 +108,6 @@ export default function crudModule(endpoint) {
             fetch({dispatch, state, commit}, id)  {
                 state.item = {}
                 dispatch('wait/start', 'fetch.'+id, { root: true });
-                dispatch('fetchRelated');
 
                 return new Promise((resolve, reject) => {
                     axios.get(endpoint+'/'+id).then((response) => {
