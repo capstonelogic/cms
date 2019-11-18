@@ -29,7 +29,11 @@ export default {
         },
         recomposeValue(obj, string){
             var parts = string.split('.');
-            var newObj = obj[parts[0]];
+
+            var newObj = (obj.hasOwnProperty(parts[0]))
+                            ? obj[parts[0]]
+                            : '';
+
             if(parts[1]){
                 parts.splice(0,1);
                 var newString = parts.join('.');

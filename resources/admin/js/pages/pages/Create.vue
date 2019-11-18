@@ -7,6 +7,7 @@
         <template v-slot:fields="props">
             <form-fields
                 :item="props.item"
+                :namespace="namespace"
                 :errors="props.errors"
                 @changed="props.onChange"/>
         </template>

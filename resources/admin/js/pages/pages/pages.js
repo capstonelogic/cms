@@ -24,7 +24,7 @@ const module = {
                 key: 'status.title',
                 label: 'Status',
                 belongsTo: {
-                    endpoint: '/pages/statuses',
+                    namespace: 'page_statuses',
                     for_key: 'status_id',
                     ref_key: 'id'
                 }

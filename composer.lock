@@ -126,7 +126,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/laravel-api-pages",
-                "reference": "a2a330ba893f1ef23fa445873118c65724d5a493"
+                "reference": "af69cfc5ada382904ae15db8b057032feae73b69"
             },
             "require": {
                 "illuminate/support": "^6.0",

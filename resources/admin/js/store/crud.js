@@ -6,6 +6,7 @@ export default function crudModule(endpoint) {
         state: {
             fields: [],
             fillable: [],
+            related: {},
             items: [],
             meta: {},
             item: {},
@@ -25,6 +26,9 @@ export default function crudModule(endpoint) {
             },
             SET_ACTIVE(state, item) {
                 state.activeItem = item;
+            },
+            SET_RELATED(state, related) {
+                Vue.set(state.related, related.namespace, related.data);
             },
             FETCH_ALL(state, items) {
                 state.items = items.data;
@@ -57,8 +61,35 @@ export default function crudModule(endpoint) {
             }
         },
         actions: {
+            fetchRelated({dispatch, state, commit}) {
+                dispatch('wait/start', 'fetchRelated', { root: true });
+
+                state.fields.forEach(function(field, i) {
+                    if(field.hasOwnProperty('belongsTo')) {
+                        var namespace = field.belongsTo.namespace
+                        
+                        dispatch(namespace+'/fetchAll', null, { root: true })
+                            .then(function(response) {
+                                commit("SET_RELATED", {
+                                    namespace: namespace,
+                                    data: {
+                                        data: response.data,
+                                        keys: {
+                                            for_key: 'status_id',
+                                            ref_key: 'id'
+                                        }
+                                    }
+                                });
+                                dispatch('wait/end', 'fetchRelated', { root: true });
+                            }).catch((error) => {
+                                dispatch('wait/end', 'fetchRelated', { root: true });
+                            });
+                    }
+                })
+            },
             fetchAll({dispatch, state, commit})  {
                 dispatch('wait/start', 'fetchAll', { root: true });
+                dispatch('fetchRelated');
 
                 return new Promise((resolve, reject) => {
                     axios.get(endpoint+'?'+str.methods.queryString(state.query))
@@ -77,6 +108,7 @@ export default function crudModule(endpoint) {
             fetch({dispatch, state, commit}, id)  {
                 state.item = {}
                 dispatch('wait/start', 'fetch.'+id, { root: true });
+                dispatch('fetchRelated');
 
                 return new Promise((resolve, reject) => {
                     axios.get(endpoint+'/'+id).then((response) => {
@@ -137,6 +169,9 @@ export default function crudModule(endpoint) {
             },
             fillable(state) {
                 return state.fillable;
+            },
+            related(state) {
+                return state.related;
             },
             items(state) {
                 return state.items;

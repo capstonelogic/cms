@@ -25,6 +25,20 @@
     </div>
 
     <div class="form-group">
+        <label for="statusInput">Status:</label>
+        <cl-select
+            v-if="related.hasOwnProperty('page_statuses')"
+            v-model="data.status_id"
+            :options="related.page_statuses.data"/>
+
+        <div v-if="errors.hasOwnProperty('status_id')">
+            <p v-for="error in errors.status_id" v-bind:key="error" class="text-danger">
+                {{error}}
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label for="seoTitleInput">SEO Title:</label>
         <input type="text" class="form-control" id="seoTitleInput"
             placeholder="Enter SEO Title"
@@ -68,19 +82,27 @@
 
 <script>
 import Editor from '../../components/Editor.vue'
+import ClSelect from '../../components/Select.vue'
 
 export default {
-    props: ['item', 'errors'],
+    props: ['item', 'namespace', 'errors'],
     data() {
         return {
             data: {}
         }
     },
+    computed: {
+        related() {
+            return this.$store.getters[this.namespace+'/related'];
+        },
+    },
     created () {
         this.data = this.item;
+        this.$store.dispatch(this.namespace+'/fetchRelated')
     },
     components: {
-        Editor
+        Editor,
+        ClSelect
     },
     watch: {
         data: {
