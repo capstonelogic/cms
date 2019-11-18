@@ -50,3 +50,16 @@ body {
 .ck-editor__editable_inline {
     min-height: 400px;
 }
+
+.status-draft {
+    color: $dark;
+    background-color: $secondary;
+}
+.status-published {
+    color: $white;
+    background-color: $green;
+}
+.status-inactive {
+    color: $white;
+    background-color: $red;
+}

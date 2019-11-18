@@ -8,11 +8,13 @@ const module = {
     state: {
         ...crud.state,
         fields: [
-            {key: 'id',         label: 'ID'},
-            {key: 'title',      label: 'Title'},
-            {key: 'content',    label: 'Content',   onList: false},
-            {key: 'created_at', label: 'Created'},
-            {key: 'updated_at', label: 'Updated'},
+            {key: 'id',                 label: 'ID'},
+            {key: 'title',              label: 'Title'},
+            {key: 'user.first_name',    label: 'Author'},
+            {key: 'status.title',       label: 'Status'},
+            {key: 'content',            label: 'Content',   onList: false},
+            {key: 'created_at',         label: 'Created'},
+            {key: 'updated_at',         label: 'Updated'},
         ]
     },
     mutations: {

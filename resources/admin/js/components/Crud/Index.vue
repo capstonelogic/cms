@@ -16,18 +16,22 @@
         <div class="row">
             <div class="col-12">
                 <cl-table :headers="onListFilter(fields)" :body="items" :actions="table_actions">
-                    <template v-slot:item="props">
-                        <router-link :to="{name: namespace+'-view', params:{id:props.item.field.id}}">
-                            {{ props.item.key }}
+                    <template v-slot:s_id="props">
+                        <router-link :to="{name: namespace+'-view', params:{id:props.item.item.id}}">
+                            {{ props.item.value }}
                         </router-link>
                     </template>
 
+                    <template v-slot:s_status.title="props">
+                        <span :class="'badge status-'+props.item.value">{{ props.item.value }}</span>
+                    </template>
+
                     <template v-slot:s_created_at="props">
-                        {{ props.item.created_at|formatDate }}
+                        {{ props.item.item.created_at|formatDate }}
                     </template>
 
                     <template v-slot:s_updated_at="props">
-                        {{ props.item.updated_at|formatDate }}
+                        {{ props.item.item.updated_at|formatDate }}
                     </template>
 
                     <template v-slot:s_actions="props">

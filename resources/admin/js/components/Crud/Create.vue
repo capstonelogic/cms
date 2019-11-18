@@ -9,18 +9,20 @@
 
         <div class="row">
             <div class="col-12">
-                <form @submit="onSubmit">
+                <slot name="body" v-bind:item="item">
+                    <form @submit="onSubmit">
 
-                    <slot name="fields"
-                        v-bind:onChange="onChange"
-                        v-bind:errors="errors" />
+                        <slot name="fields"
+                            v-bind:onChange="onChange"
+                            v-bind:errors="errors" />
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                            Create
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                Create
+                            </button>
+                        </div>
+                    </form>
+                </slot>
             </div>
         </div>
     </div>

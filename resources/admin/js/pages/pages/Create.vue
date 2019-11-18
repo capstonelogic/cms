@@ -23,7 +23,10 @@ export default {
         return {
             item: {
                 title: '',
-                content: ''
+                content: '',
+                seo_title: '',
+                seo_description: '',
+                seo_keywords: '',
             },
         }
     },

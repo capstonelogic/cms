@@ -9,18 +9,20 @@
 
         <div v-if="!objectIsEmpty(item)" class="row">
             <div class="col-12">
-                <form @submit="onSubmit">
-                    <slot name="fields"
-                        v-bind:item="item"
-                        v-bind:onChange="onChange"
-                        v-bind:errors="errors" />
+                <slot name="body" v-bind:item="item">
+                    <form @submit="onSubmit">
+                        <slot name="fields"
+                            v-bind:item="item"
+                            v-bind:onChange="onChange"
+                            v-bind:errors="errors" />
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                            Update
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </slot>
             </div>
         </div>
 

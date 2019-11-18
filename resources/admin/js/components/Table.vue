@@ -13,10 +13,15 @@
             </thead>
             <tbody>
                 <tr v-for="item in body" v-bind:key="item.id">
-                    <td v-for="header in headers" v-bind:key="header.key" :class="'td_'+header.key">
-                        <slot :name="'s_'+header.key" v-bind:item="item">
-                            <slot name="item" v-bind:item="{field: item, key:item[header.key]}">
-                                {{ item[header.key] }}
+                    <td v-for="header in headers"
+                            v-bind:key="header.key" :class="'td_'+dotToDash(header.key)">
+                        
+                        <slot :name="'s_'+header.key"
+                                v-bind:item="{item: item, key:header.key, value:recomposeValue(item, header.key)}">
+                            
+                            <slot name="item"
+                                    v-bind:item="{item: item, key:header.key}">
+                                {{ recomposeValue(item, header.key) }}
                             </slot>
                         </slot>
                     </td>
