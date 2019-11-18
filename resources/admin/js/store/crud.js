@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import str from '../mixins/str'
 
-export default function(endpoint) {
+export default function crudModule(endpoint) {
     return {
         state: {
             fields: [],
+            fillable: [],
             items: [],
             meta: {},
             item: {},
@@ -58,6 +59,7 @@ export default function(endpoint) {
         actions: {
             fetchAll({dispatch, state, commit})  {
                 dispatch('wait/start', 'fetchAll', { root: true });
+
                 return new Promise((resolve, reject) => {
                     axios.get(endpoint+'?'+str.methods.queryString(state.query))
                         .then((response) => {
@@ -132,6 +134,9 @@ export default function(endpoint) {
         getters: {
             fields(state) {
                 return state.fields;
+            },
+            fillable(state) {
+                return state.fillable;
             },
             items(state) {
                 return state.items;

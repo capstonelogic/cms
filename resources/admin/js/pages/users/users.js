@@ -6,6 +6,14 @@ const module = {
     namespaced: true,
     state: {
         ...crud.state,
+        fillable: {
+            username: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone: '',
+            password: ''
+        },
         fields: [
             {key: 'id',         label: 'ID'},
             {key: 'first_name', label: 'First Name'},

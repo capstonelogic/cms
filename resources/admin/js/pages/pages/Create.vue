@@ -6,7 +6,7 @@
 
         <template v-slot:fields="props">
             <form-fields
-                :item="item"
+                :item="props.item"
                 :errors="props.errors"
                 @changed="props.onChange"/>
         </template>
@@ -19,17 +19,6 @@ import FormFields from './FormFields.vue'
 
 export default {
     props: ['title', 'namespace'],
-    data() {
-        return {
-            item: {
-                title: '',
-                content: '',
-                seo_title: '',
-                seo_description: '',
-                seo_keywords: '',
-            },
-        }
-    },
     components: {
         CrudCreate,
         FormFields

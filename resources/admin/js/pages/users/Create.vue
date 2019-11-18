@@ -6,7 +6,7 @@
 
         <template v-slot:fields="props">
             <form-fields
-                :item="item"
+                :item="props.item"
                 :errors="props.errors"
                 @changed="props.onChange"/>
                 
@@ -14,7 +14,7 @@
                 <label for="passwordInput">Password:</label>
                 <input type="password" class="form-control" id="passwordInput"
                     placeholder="Enter Password"
-                    v-model="item.password" />
+                    v-model="props.item.password" />
 
                 <div v-if="props.errors.hasOwnProperty('password')">
                     <p v-for="error in props.errors.password" v-bind:key="error" class="text-danger">
@@ -32,18 +32,6 @@ import FormFields from './FormFields.vue'
 
 export default {
     props: ['title', 'namespace'],
-    data() {
-        return {
-            item: {
-                username: '',
-                first_name: '',
-                last_name: '',
-                email: '',
-                phone: '',
-                password: ''
-            },
-        }
-    },
     components: {
         CrudCreate,
         FormFields

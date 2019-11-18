@@ -13,6 +13,7 @@
                     <form @submit="onSubmit">
 
                         <slot name="fields"
+                            v-bind:item="item"
                             v-bind:onChange="onChange"
                             v-bind:errors="errors" />
 
@@ -33,7 +34,7 @@ import store from '../../store'
 import Breadcrumb from '../../components/Breadcrumb.vue'
 
 export default {
-    props: ['title', 'namespace', 'item', 'breadcrumbs'],
+    props: ['title', 'namespace', 'breadcrumbs'],
     data() {
         return {
             errors: {},
@@ -45,6 +46,11 @@ export default {
             },
             data: {}
         }
+    },
+    computed: {
+        item() {
+            return this.$store.getters[this.namespace+'/fillable'];
+        },
     },
     components: {
         Breadcrumb
