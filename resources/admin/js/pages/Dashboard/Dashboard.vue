@@ -1,7 +1,7 @@
 <template>
 <div class="container-fluid">
-    <div v-if="stats_widgets.length" class="row stats-widgets pt-3">
-        <div v-for="item in stats_widgets" v-bind:key="item.title"
+    <div v-if="counters.length" class="row stats-widgets pt-3">
+        <div v-for="item in counters" v-bind:key="item.title"
                 class="col-sm-4 mb-3">
 
             <stats-widget
@@ -24,12 +24,15 @@ import StatsWidget from '../../components/Widgets/Stats.vue'
 
 export default {
     computed: {
-        stats_widgets() {
-            return this.$store.getters['dashboard/stats_widgets'];
+        counters() {
+            return this.$store.getters['counters/items'];
         }
     },
     components: {
         StatsWidget
-    }
+    },
+    created () {
+        this.$store.dispatch('counters/fetchAll')
+    },
 }
 </script>

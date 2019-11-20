@@ -41,6 +41,23 @@ const module = {
                         route: { name: 'pages-create' },
                     }
                 ]
+            },
+            {
+                title: 'Menus',
+                icon: '<i class="fas fa-bars"></i>',
+                route: {},
+                childs: [
+                    {
+                        title: 'Menus',
+                        icon: '<i class="fas fa-bars"></i>',
+                        route: { name: 'menus' },
+                    },
+                    {
+                        title: 'Create',
+                        icon: '<i class="fas fa-plus"></i>',
+                        route: { name: 'menus-create' },
+                    }
+                ]
             }
         ]
     },

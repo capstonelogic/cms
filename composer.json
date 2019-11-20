@@ -10,19 +10,21 @@
     "require": {
         "php": "^7.2",
         "barryvdh/laravel-cors": "^0.11.4",
+        "capstonelogic/laravel-api-pages": "^1.0",
+        "capstonelogic/laravel-api-stats": "^1.0",
         "capstonelogic/laravel-api-users": "^0.1",
+        "capstonelogic/laravel-api-menus": "master@dev",
         "capstonelogic/laravel-auth": "^3.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
-        "woodoocoder/laravel-helpers": "^0.1.1",
-        "capstonelogic/laravel-api-pages": "master@dev"
+        "woodoocoder/laravel-helpers": "^0.1.1"
     },
     "repositories": [
         {
             "type": "path",
-            "url": "packages/laravel-api-pages",
+            "url": "packages/laravel-api-menus",
             "options": {
                 "symlink": true
             }
